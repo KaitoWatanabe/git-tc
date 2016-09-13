@@ -1,11 +1,12 @@
 function git-tc() {
   GITTCFILE=./$(git rev-parse --show-cdup).git-tc.txt
   if [ "$1" != "" ]; then
+    
     case "$1" in
       "init" )  git-tc-init ;;
       "-b" ) git-tc-default "branch: $(git_current_branch)" ;;
       "-p" ) git-tc-default "[WIP]" ;;
-      * ) echo "$1 is not found" ;;
+      * ) git-tc-option "$1" ;;
     esac
   else
     git-tc-default ''
@@ -31,4 +32,15 @@ function git-tc-default() {
   else
     echo ".git-tc.text not found. please command \`git-tc init\`"
   fi
+}
+
+function git-tc-option() {
+  CONFIGFILE=./$(git rev-parse --show-cdup).git-tc.yml
+    cat $CONFIGFILE | shyaml get-values-0 option | 
+    while IFS='' read -r -d '' key && IFS='' read -r -d '' value; do
+      if [ "-$key" = "$1" ]; then
+        echo "'$key' -> '$value'"
+        git-tc-default "$value"
+      fi
+    done
 }

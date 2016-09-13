@@ -1,0 +1,11 @@
+option:
+  p: mysql2
+  d: utf8
+  b: my_database
+  z: root
+  x: addd
+list:
+  - aaaaaaaaaa
+  - bbbbbbbbbb
+  - bbbbbbbbbb
+  - bbbbbbbbbb
