@@ -1,11 +1,8 @@
 function git-tc() {
-  GITTCFILE=./$(git rev-parse --show-cdup).git-tc.txt
-  if [ "$1" != "" ]; then
-    
+  if [ "$1" != "" ]; then    
     case "$1" in
       "init" )  git-tc-init ;;
       "-b" ) git-tc-default "branch: $(git_current_branch)" ;;
-      "-p" ) git-tc-default "[WIP]" ;;
       * ) git-tc-option "$1" ;;
     esac
   else
@@ -14,19 +11,19 @@ function git-tc() {
 }
 
 function git-tc-init() {
-  GITTCFILE=./$(git rev-parse --show-cdup).git-tc.txt
-  if [ ! -f $GITTCFILE ]; then
-    cp ~/.oh-my-zsh/custom/plugins/git-tc/.git-tc.txt.example $GITTCFILE
-    echo "\`.git-tc.txt\` file created."
+  CONFIGFILE=./$(git rev-parse --show-cdup).git-tc.yml
+  if [ ! -f $CONFIGFILE ]; then
+    cp ~/.oh-my-zsh/custom/plugins/git-tc/.git-tc.yml.example $CONFIGFILE
+    echo "\`.git-tc.yml\` file created."
   else
-    echo "error: \`.git-tc.txt\` file exists."
+    echo "error: \`.git-tc.yml\` file exists."
   fi
 }
 
 function git-tc-default() {
-  GITTCFILE=./$(git rev-parse --show-cdup).git-tc.txt
-  if [ -f $GITTCFILE ]; then
-    BUFFER=$(cat $GITTCFILE | peco --query "$LBUFFER")
+  CONFIGFILE=./$(git rev-parse --show-cdup).git-tc.yml
+  if [ -f $CONFIGFILE ]; then
+    BUFFER=$(cat $CONFIGFILE | shyaml get-value list | peco --query "$LBUFFER")
     print -z "git commit -m \"$1 $(echo $BUFFER | sed -e 's/#[^#]*#//g')\" "
   else
     echo "error: .git-tc.text not found. please command \`git-tc init\`"
