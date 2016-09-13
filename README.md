@@ -10,7 +10,7 @@ If you use this, manage your team commit message with git-tc template.
 ## Installation
 
 `git-tc` is built to work with [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh/), so you’ll need that installed first.
-and require [peco](https://github.com/peco/peco). enter `brew install peco`
+and require [peco](https://github.com/peco/peco). enter `brew install peco`, require [shyaml](https://github.com/0k/shyaml). enter `pip install shyaml`
 
 1. `$ cd ~/.oh-my-zsh/custom/plugins` (you may have to create the folder)
 2. `$ git clone https://github.com/KaitoWatanabe/git-tc.git`
