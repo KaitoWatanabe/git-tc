@@ -1,5 +1,5 @@
-function gitcom() {
+function git-tc() {
   TESTFILE=./$(git rev-parse --show-cdup).git-tc.txt
-  BUFFER=$(cat $TESTFILE | eval tail -r | peco --query "$LBUFFER")
+  BUFFER=$(cat $TESTFILE | peco --query "$LBUFFER")
   print -z "git commit -m \"$(echo $BUFFER)\""
 }
