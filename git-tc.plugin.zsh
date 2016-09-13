@@ -24,7 +24,7 @@ function git-tc-default() {
   CONFIGFILE=./$(git rev-parse --show-cdup).git-tc.yml
   if [ -f $CONFIGFILE ]; then
     BUFFER=$(cat $CONFIGFILE | shyaml get-value list | peco --query "$LBUFFER")
-    print -z "git commit -m \"$1 $(echo $BUFFER | sed -e 's/#[^#]*#//g')\" "
+    print -z "git commit -m \"$1 $(echo $BUFFER | sed -e 's/@[^@]*@//g')\" "
   else
     echo "error: .git-tc.text not found. please command \`git-tc init\`"
   fi
