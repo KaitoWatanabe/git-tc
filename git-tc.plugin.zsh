@@ -7,7 +7,6 @@ function git-tc() {
       "-b" ) git-tc-default "branch: $(git_current_branch)" ;;
       "-p" ) git-tc-default "[WIP]" ;;
       * ) git-tc-option "$1" ;;
-      #* ) echo "error: $1 is not found" ;;
     esac
   else
     git-tc-default ''
@@ -36,10 +35,15 @@ function git-tc-default() {
 
 function git-tc-option() {
   CONFIGFILE=./$(git rev-parse --show-cdup).git-tc.yml
+  NOCOMMAND=true
     cat $CONFIGFILE | shyaml get-values-0 option | 
     while IFS='' read -r -d '' key && IFS='' read -r -d '' value; do
       if [ "-$key" = "$1" ]; then
         git-tc-default "$value"
+        NOCOMMAND=false
       fi
     done
+    if [ "$NOCOMMAND" = true ]; then
+      echo "error: $1 is not found"
+    fi
 }
