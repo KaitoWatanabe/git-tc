@@ -7,6 +7,7 @@ function git-tc() {
       "-b" ) git-tc-default "branch: $(git_current_branch)" ;;
       "-p" ) git-tc-default "[WIP]" ;;
       * ) git-tc-option "$1" ;;
+      #* ) echo "error: $1 is not found" ;;
     esac
   else
     git-tc-default ''
@@ -15,12 +16,11 @@ function git-tc() {
 
 function git-tc-init() {
   GITTCFILE=./$(git rev-parse --show-cdup).git-tc.txt
-
   if [ ! -f $GITTCFILE ]; then
     cp ~/.oh-my-zsh/custom/plugins/git-tc/.git-tc.txt.example $GITTCFILE
-    # echo -e $(cat ~/.oh-my-zsh/custom/plugins/git-tc/.git-tc.txt.example) >> $GITTCFILE
+    echo "\`.git-tc.txt\` file created."
   else
-    echo "file exists"
+    echo "error: \`.git-tc.txt\` file exists."
   fi
 }
 
@@ -30,7 +30,7 @@ function git-tc-default() {
     BUFFER=$(cat $GITTCFILE | peco --query "$LBUFFER")
     print -z "git commit -m \"$1 $(echo $BUFFER | sed -e 's/#[^#]*#//g')\" "
   else
-    echo ".git-tc.text not found. please command \`git-tc init\`"
+    echo "error: .git-tc.text not found. please command \`git-tc init\`"
   fi
 }
 
@@ -39,7 +39,6 @@ function git-tc-option() {
     cat $CONFIGFILE | shyaml get-values-0 option | 
     while IFS='' read -r -d '' key && IFS='' read -r -d '' value; do
       if [ "-$key" = "$1" ]; then
-        echo "'$key' -> '$value'"
         git-tc-default "$value"
       fi
     done
