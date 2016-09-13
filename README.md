@@ -21,10 +21,10 @@ and require [peco](https://github.com/peco/peco). enter `brew install peco`, req
   ```
 
   # Use
-  1. `git-tc init` in your root projct. You will get `.git-tc.txt` file.
-  2. change your `.git-tc.txt`. between # and # comment is ignored only show in peco.
+  1. `git-tc init` in your root projct. You will get `.git-tc.yml` file.
+  2. change your `.git-tc.yml`. between @ and @ comment is ignored only show in peco.
   3. enter `git-tc`
 
   ## option
   1. `git-tc -b` attach `your current branch` to commit message.
-  2. `git-tc -p` attach `[WIP]` to commit message.
+  2. chagne your `.git-tc.yml`. You can add option.
