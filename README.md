@@ -1,4 +1,7 @@
 # git-tc
+
+![image](https://github.com/KaitoWatanabe/git-tc/blob/master/git-tc.gif)
+
 oh-my-zsh plugin for managing branches
 
 If you use this, manage your team commit message with git-tc template. 
